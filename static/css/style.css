@@ -1,0 +1,17 @@
+body {
+    background: #f5f7fb;
+    font-family: sans-serif;
+}
+
+.card {
+    border-radius: 15px;
+}
+
+.table {
+    background: white;
+}
+
+.nav-link:hover {
+    background: #343a40;
+    border-radius: 10px;
+}

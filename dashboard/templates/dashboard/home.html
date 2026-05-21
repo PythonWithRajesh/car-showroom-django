@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container mt-4">
+    <!-- Welcome Section -->
+
+    <div class="p-5 mb-4 bg-dark text-white rounded shadow">
+      <h1 class="display-5 fw-bold">Welcome to Maruti Suzuki</h1>
+
+      <p class="fs-5">Manage customers, followups, cars and sales reports easily.</p>
+    </div>
+
+    <!-- Cards Section -->
+
+    <div class="row g-4">
+      <div class="col-md-3">
+        <div class="card shadow border-0 bg-primary text-white h-100">
+          <div class="card-body text-center">
+            <h5>Total Customers</h5>
+            <h1>{{ total_customers }}</h1>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="card shadow border-0 bg-success text-white h-100">
+          <div class="card-body text-center">
+            <h5>Total Cars</h5>
+            <h1>{{ total_cars }}</h1>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="card shadow border-0 bg-warning text-dark h-100">
+          <div class="card-body text-center">
+            <h5>Total Followups</h5>
+            <h1>{{ total_followups }}</h1>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="card shadow border-0 bg-danger text-white h-100">
+          <div class="card-body text-center">
+            <h5>Pending Followups</h5>
+            <h1>{{ pending_followups }}</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent Customers -->
+
+    <div class="card shadow mt-5 border-0">
+      <div class="card-header bg-dark text-white">
+        <h4>Recent Customers</h4>
+      </div>
+
+      <div class="card-body">
+        <table class="table table-hover">
+          <thead class="table-dark">
+            <tr>
+              <th>Name</th>
+              <th>Phone</th>
+              <th>City</th>
+              <th>Interested Car</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {% for customer in recent_customers %}
+              <tr>
+                <td>{{ customer.name }}</td>
+                <td>{{ customer.phone }}</td>
+                <td>{{ customer.city }}</td>
+                <td>{{ customer.interested_car }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Recent Followups -->
+
+    <div class="card shadow mt-5 border-0">
+      <div class="card-header bg-dark text-white">
+        <h4>Recent Followups</h4>
+      </div>
+
+      <div class="card-body">
+        <table class="table table-hover">
+          <thead class="table-dark">
+            <tr>
+              <th>Customer</th>
+              <th>Car</th>
+              <th>Status</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {% for followup in recent_followups %}
+              <tr>
+                <td>{{ followup.customer }}</td>
+                <td>{{ followup.car }}</td>
+                <td>
+                  {% if followup.status == 'Pending' %}
+                    <span class="badge bg-warning">Pending</span>
+                  {% elif followup.status == 'Booked' %}
+                    <span class="badge bg-success">Booked</span>
+                  {% else %}
+                    <span class="badge bg-danger">Cancelled</span>
+                  {% endif %}
+                </td>
+
+                <td>{{ followup.followup_date }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+{% endblock %}

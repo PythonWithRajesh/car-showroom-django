@@ -1,53 +1,39 @@
 {% extends 'base.html' %}
 
-{% load static %}
-
 {% block content %}
   <div class="container mt-5">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-      <h1 class="fw-bold">Available Cars</h1>
+    <div class="card shadow-lg p-4 rounded-4">
+      <h2 class="mb-4 fw-bold text-center">Add New Car</h2>
 
-      <a href="/cars/add/" class="btn btn-dark rounded-pill px-4">
-        + Add Car
-      </a>
-    </div>
+      <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
 
-    <div class="row">
-      {% for car in cars %}
-        <div class="col-md-4 mb-4">
-          <div class="card shadow-lg border-0 rounded-4 overflow-hidden h-100">
+        <div class="mb-3">
+          <label class="form-label">Car Name</label>
 
-            <img src="{{ car.image.url }}"
-                 class="card-img-top"
-                 style="height:250px; object-fit:cover;" />
-
-            <div class="card-body">
-
-              <h3 class="fw-bold">{{ car.name }}</h3>
-
-              <h5 class="text-success">₹ {{ car.price }}</h5>
-
-              <p class="text-muted">
-                Mileage: {{ car.mileage }}
-              </p>
-
-              <button class="btn btn-dark w-100 rounded-pill">
-                View Details
-              </button>
-
-            </div>
-          </div>
+          <input type="text" name="name" class="form-control" placeholder="Enter car name" />
         </div>
 
-      {% empty %}
+        <div class="mb-3">
+          <label class="form-label">Price</label>
 
-        <div class="col-12">
-          <div class="alert alert-warning">
-            No Cars Added Yet
-          </div>
+          <input type="number" name="price" class="form-control" placeholder="Enter price" />
         </div>
 
-      {% endfor %}
+        <div class="mb-3">
+          <label class="form-label">Mileage</label>
+
+          <input type="text" name="mileage" class="form-control" placeholder="Enter mileage" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Car Image</label>
+
+          <input type="file" name="image" class="form-control" />
+        </div>
+
+        <button type="submit" class="btn btn-dark w-100">Add Car</button>
+      </form>
     </div>
   </div>
 {% endblock %}

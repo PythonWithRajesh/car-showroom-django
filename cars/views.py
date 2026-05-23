@@ -1,18 +1,19 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 from .models import Car
 
 
+@login_required(login_url='/')
 def car_list(request):
 
     cars = Car.objects.all()
 
-    context = {
+    return render(request, 'cars/car_list.html', {
         'cars': cars
-    }
-
-    return render(request, 'cars/car_list.html', context)
+    })
 
 
+@login_required(login_url='/')
 def add_car(request):
 
     if request.method == 'POST':
